@@ -559,6 +559,12 @@ window.Nexi = (function () {
       isListening = true;
       elements.micBtn.classList.add("listening");
       document.getElementById("nexi-chat-status").textContent = "Listening... Speak now!";
+      const voiceToggle = document.getElementById("voice-master-toggle");
+      const voiceWrap = document.getElementById("voice-toggle-label");
+      const indicator = document.getElementById("voice-listening-indicator");
+      if (voiceToggle) voiceToggle.checked = true;
+      if (voiceWrap) voiceWrap.classList.add("voice-active");
+      if (indicator) indicator.classList.remove("hidden");
     };
 
     recognition.onresult = (event) => {
@@ -571,12 +577,24 @@ window.Nexi = (function () {
       isListening = false;
       elements.micBtn.classList.remove("listening");
       document.getElementById("nexi-chat-status").textContent = "AI Mascot Assistant";
+      const voiceToggle = document.getElementById("voice-master-toggle");
+      const voiceWrap = document.getElementById("voice-toggle-label");
+      const indicator = document.getElementById("voice-listening-indicator");
+      if (voiceToggle) voiceToggle.checked = false;
+      if (voiceWrap) voiceWrap.classList.remove("voice-active");
+      if (indicator) indicator.classList.add("hidden");
     };
 
     recognition.onend = () => {
       isListening = false;
       elements.micBtn.classList.remove("listening");
       document.getElementById("nexi-chat-status").textContent = "AI Mascot Assistant";
+      const voiceToggle = document.getElementById("voice-master-toggle");
+      const voiceWrap = document.getElementById("voice-toggle-label");
+      const indicator = document.getElementById("voice-listening-indicator");
+      if (voiceToggle) voiceToggle.checked = false;
+      if (voiceWrap) voiceWrap.classList.remove("voice-active");
+      if (indicator) indicator.classList.add("hidden");
     };
   }
 
@@ -666,6 +684,7 @@ window.Nexi = (function () {
     setMuted,
     setReduced,
     setExamMode,
+    toggleVoiceRecognition,
     isMuted: () => isMuted,
     isReduced: () => isReduced,
     getLanguage: () => currentLang

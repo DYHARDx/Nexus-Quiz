@@ -98,8 +98,8 @@ window.NexusQuiz = (function () {
     const themeBtn = document.getElementById("btn-theme-toggle");
     if (themeBtn) {
       themeBtn.innerHTML = state.theme === "dark" 
-        ? `<svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><span>Light Mode</span>`
-        : `<svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span>Dark Mode</span>`;
+        ? `<svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><span>Light</span>`
+        : `<svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span>Dark</span>`;
       themeBtn.setAttribute("aria-label", `Switch to ${state.theme === "dark" ? "light" : "dark"} theme`);
     }
   }
@@ -124,6 +124,22 @@ window.NexusQuiz = (function () {
     if (targetScreen) {
       targetScreen.classList.remove("hidden");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Toggle quiz-active body class and footer visibility
+    const footer = document.querySelector(".app-footer");
+    if (screenNumber === 2 || screenNumber === 3) {
+      document.body.classList.add("quiz-active");
+      if (footer) footer.classList.add("hidden");
+    } else {
+      document.body.classList.remove("quiz-active");
+      if (footer) {
+        if (screenNumber === 0) {
+          footer.classList.add("hidden");
+        } else {
+          footer.classList.remove("hidden");
+        }
+      }
     }
 
     // Screen specific setups
@@ -315,6 +331,11 @@ window.NexusQuiz = (function () {
     state.endTime = Date.now() + state.timeLimit * 1000;
     state.visited[0] = true;
 
+    const topicBar = document.getElementById("quiz-topic-name-bar");
+    if (topicBar && state.topicName) {
+      topicBar.textContent = state.topicName;
+    }
+
     saveSession();
     showScreen(3);
 
@@ -352,9 +373,20 @@ window.NexusQuiz = (function () {
   function updateTimerDisplay() {
     const timerElem = document.getElementById("quiz-timer");
     const progressFill = document.getElementById("timer-progress-fill");
+    const timerWrap = document.getElementById("quiz-timer-wrap");
+    const mobileTimer = document.getElementById("mobile-quiz-timer");
+
+    const timeStr = formatTime(state.timeLeft);
+
+    if (timerElem) {
+      timerElem.textContent = timeStr;
+    }
+    if (mobileTimer) {
+      mobileTimer.textContent = timeStr;
+    }
+
     if (!timerElem) return;
 
-    timerElem.textContent = formatTime(state.timeLeft);
     const fractionLeft = state.timeLeft / state.timeLimit;
 
     if (progressFill) {
@@ -362,12 +394,15 @@ window.NexusQuiz = (function () {
     }
 
     timerElem.classList.remove("timer-amber", "timer-red");
+    if (timerWrap) timerWrap.classList.remove("timer-amber", "timer-red");
 
     if (state.timeLeft <= 30) {
       timerElem.classList.add("timer-red");
+      if (timerWrap) timerWrap.classList.add("timer-red");
       if (state.timeLeft === 30 && window.Nexi) window.Nexi.react("timer_red");
     } else if (fractionLeft <= 0.25) {
       timerElem.classList.add("timer-amber");
+      if (timerWrap) timerWrap.classList.add("timer-amber");
       if (Math.ceil(state.timeLimit * 0.25) === state.timeLeft && window.Nexi) {
         window.Nexi.react("timer_amber");
       }
@@ -381,8 +416,16 @@ window.NexusQuiz = (function () {
 
     state.visited[qIndex] = true;
 
-    // Header updates
-    document.getElementById("quiz-progress-text").textContent = `Question ${qIndex + 1} of ${state.questions.length}`;
+    // Header & Question number updates
+    const progressText = document.getElementById("quiz-progress-text");
+    if (progressText) {
+      progressText.textContent = `Question ${qIndex + 1} of ${state.questions.length}`;
+    }
+
+    const mobileProg = document.getElementById("mobile-quiz-progress");
+    if (mobileProg) {
+      mobileProg.textContent = `Q ${qIndex + 1}/${state.questions.length}`;
+    }
     
     const answeredCount = state.userAnswers.filter((a) => a !== null).length;
     const progressBar = document.getElementById("quiz-progress-bar");
@@ -1053,6 +1096,13 @@ window.NexusQuiz = (function () {
         else if (e.key === "ArrowLeft") navigateQuestion("prev");
         else if (e.key === "ArrowRight") navigateQuestion("next");
         else if (e.key === "Escape") clearResponse();
+      }
+    });
+
+    // Voice toggle in navbar
+    document.getElementById("voice-master-toggle")?.addEventListener("change", () => {
+      if (window.Nexi && typeof window.Nexi.toggleVoiceRecognition === "function") {
+        window.Nexi.toggleVoiceRecognition();
       }
     });
 

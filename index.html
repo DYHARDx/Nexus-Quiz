@@ -28,7 +28,9 @@
   <!-- Typography: Bricolage Grotesque (display) + DM Sans (UI) + JetBrains Mono (code/timer) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -39,41 +41,64 @@
     <div class="header-container">
       <a href="#" class="brand-logo" onclick="NexusQuiz.showScreen(1); return false;" title="Nexus Quiz Home">
         <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="brand-logo-img">
-        <div class="brand-text-block">
-          <span class="brand-title">Nexus Quiz</span>
-          <span class="brand-edition-tag">Placement</span>
-        </div>
+        <span class="brand-title">Nexus Quiz</span>
       </a>
 
       <nav class="header-nav" aria-label="Main Navigation">
         <!-- Voice Toggle Switch -->
-        <label class="voice-toggle-wrap" id="voice-toggle-label" title="Voice commands use your browser's speech recognition. Nexi only reacts after you say 'Hey Nexi'. Turn it off anytime."
+        <label class="voice-toggle-wrap" id="voice-toggle-label"
+          title="Voice commands use your browser's speech recognition. Nexi only reacts after you say 'Hey Nexi'. Turn it off anytime."
           aria-label="Toggle voice commands">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-            <line x1="12" y1="19" x2="12" y2="23"/>
-            <line x1="8" y1="23" x2="16" y2="23"/>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+            <line x1="12" y1="19" x2="12" y2="23" />
+            <line x1="8" y1="23" x2="16" y2="23" />
           </svg>
           <input type="checkbox" id="voice-master-toggle" aria-label="Enable voice commands" autocomplete="off">
           <span class="voice-label">Voice</span>
-          <span id="voice-listening-indicator" class="voice-listening-dot hidden" aria-live="polite" aria-label="Listening for Hey Nexi"></span>
+          <span id="voice-listening-indicator" class="voice-listening-dot hidden" aria-live="polite"
+            aria-label="Listening for Hey Nexi"></span>
         </label>
 
         <button id="btn-theme-toggle" class="btn-nav" aria-label="Toggle Theme">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
           <span>Light</span>
         </button>
         <button id="btn-mute-toggle" class="btn-nav" aria-label="Toggle Proctor Audio">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+          </svg>
           <span>Audio</span>
         </button>
         <button id="btn-replay-tour" class="btn-nav" aria-label="Walkthrough Tour">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+          </svg>
           <span>Tour</span>
         </button>
         <button id="btn-history" class="btn-nav" aria-label="View History">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
           <span>History</span>
         </button>
       </nav>
@@ -103,10 +128,15 @@
               <span class="lang-choice-name">English</span>
               <span class="lang-shortcut-chip">Key [1]</span>
             </div>
-            <p class="lang-choice-desc">Standard campus placement format — TCS NQT, Infosys, Cognizant, Wipro & Product drives.</p>
+            <p class="lang-choice-desc">Standard campus placement format — TCS NQT, Infosys, Cognizant, Wipro & Product
+              drives.</p>
             <div class="lang-choice-action">
               <span>Start in English</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </div>
           </button>
 
@@ -115,10 +145,15 @@
               <span class="lang-choice-name">Hinglish</span>
               <span class="lang-shortcut-chip">Key [2]</span>
             </div>
-            <p class="lang-choice-desc">Roman script Hinglish — Nexi explains stuff the way your classmate would, not your textbook.</p>
+            <p class="lang-choice-desc">Roman script Hinglish — Nexi explains stuff the way your classmate would, not
+              your textbook.</p>
             <div class="lang-choice-action">
               <span>Hinglish mein shuru karo</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </div>
           </button>
         </div>
@@ -133,10 +168,11 @@
         <div class="home-hero-content">
           <div class="hero-kicker-strip">
             <span class="hero-live-pill"><span class="live-dot"></span> Live</span>
-            <span class="hero-kicker-text">Technical & Aptitude MCQs for Campus Placements</span>
+            <span class="hero-kicker-text">Created by : Nexus Team</span>
           </div>
           <h1 class="home-hero-title">Pick a subject.<br><span class="underline-accent">Beat the clock.</span></h1>
-          <p class="home-hero-sub">Timed CBT modules modeled on TCS NQT, Infosys, Wipro, Cognizant and semester papers. No login, no fluff.</p>
+          <p class="home-hero-sub">Timed CBT modules modeled on TCS NQT, Infosys, Wipro, Cognizant and semester papers.
+            No login, no fluff.</p>
 
           <div class="hero-stats-row">
             <div class="hero-stat-pill"><strong>8</strong> Subjects</div>
@@ -186,7 +222,8 @@
       <div class="ai-studio-section">
         <div class="section-heading-bar">
           <h2 class="section-title">Make your own quiz</h2>
-          <p class="section-subtitle">Type any topic, pick a difficulty. Gemini AI builds the questions. Your key, your browser, your privacy.</p>
+          <p class="section-subtitle">Type any topic, pick a difficulty. Gemini AI builds the questions. Your key, your
+            browser, your privacy.</p>
         </div>
 
         <div id="ai-card" class="ai-studio-card">
@@ -219,7 +256,11 @@
               </div>
 
               <button id="btn-generate-ai-quiz" class="btn-primary-action" style="width: 100%; margin-top: 4px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                </svg>
                 <span>Generate quiz</span>
               </button>
             </div>
@@ -296,7 +337,9 @@
             <li><strong>Timer starts</strong> the moment you click "Start the clock." It does not pause.</li>
             <li><strong>Auto-submit</strong> — when the timer hits 00:00, your answers lock automatically.</li>
             <li><strong>Question Palette</strong> — jump to any question or flag one for review.</li>
-            <li><strong>Keyboard shortcuts</strong> — keys <code>1–4</code> / <code>A–D</code> pick options, <code>M</code> flags, arrow keys navigate.</li>
+            <li><strong>Keyboard shortcuts</strong> — keys <code>1–4</code> / <code>A–D</code> pick options,
+              <code>M</code> flags, arrow keys navigate.
+            </li>
           </ul>
         </div>
 
@@ -311,31 +354,31 @@
          SCREEN 3: ACTIVE COMPUTER-BASED TEST (CBT)
          ========================================== -->
     <section id="screen-3" class="screen-section hidden">
-      <!-- Sticky top bar (replaces quiz-header-bar) -->
-      <div class="quiz-sticky-bar" id="quiz-sticky-bar">
-        <span class="quiz-topic-name" id="quiz-topic-name-bar">Quiz</span>
-        <div class="quiz-timer-box" id="quiz-timer-wrap">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span id="quiz-timer">11:15</span>
-        </div>
-        <div class="quiz-progress-counter">
-          <span id="quiz-diff-badge" class="badge badge-medium">MED</span>
-          &nbsp;<span id="quiz-progress-text">Q 1 / 15</span>
-        </div>
-      </div>
-
-      <!-- Top Mobile Toggle for Palette -->
-      <div class="mobile-palette-toggle mobile-only">
-        <button class="btn-secondary-action" id="btn-open-palette-mobile" onclick="NexusQuiz.toggleMobilePalette()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-          <span>Question Paper</span>
-          <span id="palette-open-badge" class="lang-shortcut-chip" style="margin-left:4px;">0</span>
-        </button>
-      </div>
-
       <div class="quiz-layout-grid">
         <!-- Main Question Area -->
         <div class="quiz-main-card">
+          <!-- Section / Topic Top Strip -->
+          <div class="quiz-section-bar">
+            <div class="q-sec-info">
+              <span class="q-sec-pill">Track</span>
+              <span class="quiz-topic-name" id="quiz-topic-name-bar">Assessment</span>
+            </div>
+            <!-- Mobile timer strip (visible only on mobile) -->
+            <div class="mobile-timer-strip mobile-only">
+              <span class="mobile-timer-text" id="mobile-quiz-timer">15:00</span>
+              <span class="mobile-q-text" id="mobile-quiz-progress">Q 1/20</span>
+              <button class="btn-palette-shortcut" onclick="NexusQuiz.toggleMobilePalette()" aria-label="Open Palette">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                </svg>
+                <span id="palette-open-badge" class="lang-shortcut-chip">0</span>
+              </button>
+            </div>
+          </div>
+
           <!-- Thin progress bar -->
           <div class="progress-container">
             <div id="quiz-progress-bar" class="progress-fill"></div>
@@ -360,25 +403,47 @@
           <div class="quiz-controls-bar">
             <div class="quiz-nav-group">
               <button id="btn-prev-q" class="btn-control btn-control-nav" onclick="NexusQuiz.navigateQuestion('prev')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
                 Prev
               </button>
-              <button id="btn-next-q" class="btn-control btn-control-primary" onclick="NexusQuiz.navigateQuestion('next')">
+              <button id="btn-next-q" class="btn-control btn-control-primary"
+                onclick="NexusQuiz.navigateQuestion('next')">
                 Next
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
               </button>
             </div>
             <div class="quiz-action-group">
               <button id="btn-mark-review" class="btn-control" onclick="NexusQuiz.toggleMarkForReview()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                  <line x1="7" y1="7" x2="7.01" y2="7" />
+                </svg>
                 Mark (M)
               </button>
               <button id="btn-clear-q" class="btn-control" onclick="NexusQuiz.clearResponse()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6" />
+                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                  <path d="M10 11v6" />
+                  <path d="M14 11v6" />
+                </svg>
                 Clear
               </button>
               <button id="btn-submit-quiz" class="btn-control btn-submit-test" onclick="NexusQuiz.openSubmitModal()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
                 Submit
               </button>
             </div>
@@ -387,19 +452,51 @@
 
         <!-- Question Palette Sidebar -->
         <div id="quiz-sidebar" class="quiz-sidebar">
-          <div class="sidebar-header">
-            <h3>Question Paper</h3>
-            <button class="icon-close-btn" onclick="NexusQuiz.toggleMobilePalette()" aria-label="Close palette">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
+          <!-- CBT Sidebar Header: Timer & Question Status directly above Question Paper -->
+          <div class="sidebar-cbt-header">
+            <!-- Timer Box -->
+            <div class="sidebar-timer-card" id="quiz-timer-wrap">
+              <div class="sidebar-card-meta">
+                <span class="cbt-meta-label">Time Remaining</span>
+                <span class="cbt-live-dot" title="Live Countdown"></span>
+              </div>
+              <div class="sidebar-timer-clock">
+                <svg class="timer-clock-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span id="quiz-timer" class="cbt-timer-digits">15:00</span>
+              </div>
+              <div class="timer-progress-track">
+                <div id="timer-progress-fill" class="timer-progress-fill"></div>
+              </div>
+            </div>
+
+            <!-- Current Question Status Card -->
+            <div class="sidebar-current-q-card">
+              <div class="sidebar-card-meta">
+                <span class="cbt-meta-label">Current Question</span>
+                <span id="quiz-diff-badge" class="badge badge-medium">MED</span>
+              </div>
+              <div class="sidebar-q-row">
+                <span id="quiz-progress-text" class="cbt-q-number-text">Question 1 of 20</span>
+              </div>
+            </div>
           </div>
+
+
 
           <!-- Legend with Live Counts -->
           <div class="palette-legend">
-            <div class="legend-item"><span class="legend-dot answered"></span> Answered (<strong id="legend-answered-count">0</strong>)</div>
-            <div class="legend-item"><span class="legend-dot marked"></span> Flagged (<strong id="legend-marked-count">0</strong>)</div>
-            <div class="legend-item"><span class="legend-dot visited"></span> Visited (<strong id="legend-visited-count">0</strong>)</div>
-            <div class="legend-item"><span class="legend-dot unvisited"></span> Not seen (<strong id="legend-unvisited-count">0</strong>)</div>
+            <div class="legend-item"><span class="legend-dot answered"></span> Answered (<strong
+                id="legend-answered-count">0</strong>)</div>
+            <div class="legend-item"><span class="legend-dot marked"></span> Flagged (<strong
+                id="legend-marked-count">0</strong>)</div>
+            <div class="legend-item"><span class="legend-dot visited"></span> Visited (<strong
+                id="legend-visited-count">0</strong>)</div>
+            <div class="legend-item"><span class="legend-dot unvisited"></span> Not seen (<strong
+                id="legend-unvisited-count">0</strong>)</div>
           </div>
 
           <!-- Grid of Question Numbers -->
@@ -481,7 +578,12 @@
           <button class="btn-secondary-action" onclick="NexusQuiz.retryQuiz(true)">Practice wrong only</button>
           <button class="btn-secondary-action" onclick="NexusQuiz.showScreen(1)">Back to topics</button>
           <button id="btn-print-result" class="btn-secondary-action" onclick="window.print()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
             <span>Print / PDF</span>
           </button>
         </div>
@@ -491,11 +593,15 @@
       <div class="review-section">
         <h2 class="section-title">Review your answers</h2>
         <div class="review-tabs">
-          <button class="review-tab active" data-filter="all" onclick="NexusQuiz.renderReviewSection('all')">All</button>
-          <button class="review-tab" data-filter="correct" onclick="NexusQuiz.renderReviewSection('correct')">Correct</button>
+          <button class="review-tab active" data-filter="all"
+            onclick="NexusQuiz.renderReviewSection('all')">All</button>
+          <button class="review-tab" data-filter="correct"
+            onclick="NexusQuiz.renderReviewSection('correct')">Correct</button>
           <button class="review-tab" data-filter="wrong" onclick="NexusQuiz.renderReviewSection('wrong')">Wrong</button>
-          <button class="review-tab" data-filter="skipped" onclick="NexusQuiz.renderReviewSection('skipped')">Skipped</button>
-          <button class="review-tab" data-filter="marked" onclick="NexusQuiz.renderReviewSection('marked')">Flagged</button>
+          <button class="review-tab" data-filter="skipped"
+            onclick="NexusQuiz.renderReviewSection('skipped')">Skipped</button>
+          <button class="review-tab" data-filter="marked"
+            onclick="NexusQuiz.renderReviewSection('marked')">Flagged</button>
         </div>
 
         <div id="review-list-container">
@@ -531,7 +637,11 @@
           <h3>Submit now?</h3>
         </div>
         <button class="icon-close-btn" onclick="NexusQuiz.closeSubmitModal()" aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
       </div>
       <p class="modal-desc" id="submit-modal-desc">
@@ -569,7 +679,11 @@
           <h3>Past attempts</h3>
         </div>
         <button class="icon-close-btn" onclick="NexusQuiz.closeHistoryModal()" aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
       </div>
       <p class="modal-desc">Last 10 quizzes, stored on this device only.</p>
@@ -592,15 +706,19 @@
         <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="tour-modal-logo">
         <span>Quick tour</span>
       </div>
-      <h3 style="margin-top: 16px; font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; letter-spacing: -0.03em;">One minute, then you're on your own.</h3>
+      <h3
+        style="margin-top: 16px; font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; letter-spacing: -0.03em;">
+        One minute, then you're on your own.</h3>
       <p class="modal-desc" style="margin: 12px auto 20px;">
         Want a quick walk through the timer, question palette, and mode switch before diving in?
       </p>
       <div class="modal-actions" style="justify-content: center; gap: 12px;">
         <button class="btn-secondary-action"
-          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1);">Skip it</button>
+          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1);">Skip
+          it</button>
         <button class="btn-primary-action"
-          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1); window.Nexi.startTour();">Show me around →</button>
+          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1); window.Nexi.startTour();">Show
+          me around →</button>
       </div>
     </div>
   </div>
