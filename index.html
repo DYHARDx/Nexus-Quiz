@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Nexus Quiz - Professional CBT Multiple-Choice Assessment Platform for Campus Placement Aptitude & Technical Exams">
+    content="Nexus Quiz - CBT Multiple-Choice Assessment Platform for Campus Placement Aptitude & Technical Exams">
   <title>Nexus Quiz — Campus Placement & Assessment Platform</title>
 
   <!-- Favicon and App Icons -->
@@ -14,7 +14,7 @@
   <link rel="shortcut icon" type="image/png" href="assets/logo/logo.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/logo.png">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#090d16">
+  <meta name="theme-color" content="#17181A">
 
   <!-- Open Graph & Social Meta -->
   <meta property="og:title" content="Nexus Quiz — Campus Placement Assessment Platform">
@@ -25,10 +25,10 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:image" content="assets/logo/logo.png">
 
-  <!-- Typography & Stylesheet -->
+  <!-- Typography: Bricolage Grotesque (display) + DM Sans (UI) + JetBrains Mono (code/timer) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -41,25 +41,39 @@
         <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="brand-logo-img">
         <div class="brand-text-block">
           <span class="brand-title">Nexus Quiz</span>
-          <span class="brand-edition-tag">Placement Suite</span>
+          <span class="brand-edition-tag">Placement</span>
         </div>
       </a>
 
       <nav class="header-nav" aria-label="Main Navigation">
+        <!-- Voice Toggle Switch -->
+        <label class="voice-toggle-wrap" id="voice-toggle-label" title="Voice commands use your browser's speech recognition. Nexi only reacts after you say 'Hey Nexi'. Turn it off anytime."
+          aria-label="Toggle voice commands">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <input type="checkbox" id="voice-master-toggle" aria-label="Enable voice commands" autocomplete="off">
+          <span class="voice-label">Voice</span>
+          <span id="voice-listening-indicator" class="voice-listening-dot hidden" aria-live="polite" aria-label="Listening for Hey Nexi"></span>
+        </label>
+
         <button id="btn-theme-toggle" class="btn-nav" aria-label="Toggle Theme">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <span>Light Mode</span>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <span>Light</span>
         </button>
         <button id="btn-mute-toggle" class="btn-nav" aria-label="Toggle Proctor Audio">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          <span>Audio On</span>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span>Audio</span>
         </button>
         <button id="btn-replay-tour" class="btn-nav" aria-label="Walkthrough Tour">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-          <span>Walkthrough</span>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          <span>Tour</span>
         </button>
         <button id="btn-history" class="btn-nav" aria-label="View History">
-          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg class="nav-svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span>History</span>
         </button>
       </nav>
@@ -77,10 +91,10 @@
         <div class="lang-setup-header">
           <div class="lang-brand-badge">
             <img src="assets/logo/logo.png" alt="Nexus Quiz" class="lang-logo">
-            <span>Nexus Evaluation Hub</span>
+            <span>Nexus Quiz</span>
           </div>
-          <h2 class="lang-setup-title">Select Assessment Medium</h2>
-          <p class="lang-setup-sub">Choose your evaluation language for timers, instructions, and technical MCQs.</p>
+          <h2 class="lang-setup-title">Pick your language.</h2>
+          <p class="lang-setup-sub">Choose once. You can come back anytime.</p>
         </div>
 
         <div class="lang-choices-grid">
@@ -89,22 +103,22 @@
               <span class="lang-choice-name">English</span>
               <span class="lang-shortcut-chip">Key [1]</span>
             </div>
-            <p class="lang-choice-desc">Standard campus placement format for TCS, Infosys, Cognizant, Wipro & Product drives.</p>
+            <p class="lang-choice-desc">Standard campus placement format — TCS NQT, Infosys, Cognizant, Wipro & Product drives.</p>
             <div class="lang-choice-action">
-              <span>Continue in English</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span>Start in English</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </div>
           </button>
 
           <button class="lang-choice-card" onclick="NexusQuiz.selectLanguage('hi')">
             <div class="lang-choice-meta">
-              <span class="lang-choice-name">हिंदी (Hindi)</span>
+              <span class="lang-choice-name">Hinglish</span>
               <span class="lang-shortcut-chip">Key [2]</span>
             </div>
-            <p class="lang-choice-desc">प्रश्नोत्तरी निर्देश और विस्तृत समाधान व्याख्याएँ हिंदी माध्यम में उपलब्ध हैं।</p>
+            <p class="lang-choice-desc">Roman script Hinglish — Nexi explains stuff the way your classmate would, not your textbook.</p>
             <div class="lang-choice-action">
-              <span>हिंदी माध्यम में शुरू करें</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span>Hinglish mein shuru karo</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </div>
           </button>
         </div>
@@ -118,110 +132,109 @@
       <div class="home-hero">
         <div class="home-hero-content">
           <div class="hero-kicker-strip">
-            <span class="hero-live-pill"><span class="live-dot"></span> Active Assessment Hub</span>
-            <span class="hero-kicker-text">Simulated Technical & Campus Recruitment MCQs</span>
+            <span class="hero-live-pill"><span class="live-dot"></span> Live</span>
+            <span class="hero-kicker-text">Technical & Aptitude MCQs for Campus Placements</span>
           </div>
-          <h1 class="home-hero-title">Engineering Placement & Technical Assessment System</h1>
-          <p class="home-hero-sub">Timed examination modules modeled on corporate recruitment benchmarks (TCS NQT, Infosys, Wipro, Cognizant) and semester curricula.</p>
+          <h1 class="home-hero-title">Pick a subject.<br><span class="underline-accent">Beat the clock.</span></h1>
+          <p class="home-hero-sub">Timed CBT modules modeled on TCS NQT, Infosys, Wipro, Cognizant and semester papers. No login, no fluff.</p>
 
           <div class="hero-stats-row">
-            <div class="hero-stat-pill"><strong>8</strong> Subject Tracks</div>
-            <div class="hero-stat-pill"><strong>100+</strong> Curated MCQs</div>
-            <div class="hero-stat-pill"><strong>45s</strong> / MCQ Standard</div>
-            <div class="hero-stat-pill"><strong>Automated</strong> Scorecards</div>
+            <div class="hero-stat-pill"><strong>8</strong> Subjects</div>
+            <div class="hero-stat-pill"><strong>100+</strong> MCQs</div>
+            <div class="hero-stat-pill"><strong>45 s</strong> per question</div>
+            <div class="hero-stat-pill"><strong>Auto</strong> scorecard</div>
           </div>
         </div>
 
         <!-- Quiz Mode Switcher -->
         <div id="mode-switch-container" class="mode-switch-card">
-          <div class="mode-switch-info">
-            <div class="mode-switch-title">Evaluation Mode</div>
-            <span id="mode-label" class="mode-switch-label">Exam Mode (Strict Real Test)</span>
+          <div class="mode-switch-title">Mode</div>
+          <div class="mode-switch-label-row">
+            <span id="mode-label" class="mode-switch-label">Exam Mode</span>
+            <label class="switch" aria-label="Toggle Exam vs Practice Mode">
+              <input type="checkbox" id="mode-switch-toggle">
+              <span class="slider"></span>
+            </label>
           </div>
-          <label class="switch" aria-label="Toggle Exam vs Practice Mode">
-            <input type="checkbox" id="mode-switch-toggle">
-            <span class="slider"></span>
-          </label>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Toggle for instant feedback</p>
         </div>
       </div>
 
       <!-- Core Topics Grid -->
       <div class="section-heading-bar">
-        <div>
-          <h2 class="section-title">Core Placement Tracks</h2>
-          <p class="section-subtitle">High-frequency assessment modules aligned with recruitment aptitude and technical test patterns.</p>
-        </div>
+        <h2 class="section-title">Core Placement Tracks</h2>
+        <p class="section-subtitle">High-frequency modules aligned with aptitude and tech test patterns.</p>
       </div>
       <div id="topic-grid" class="topic-grid">
         <!-- Dynamically rendered by app.js -->
       </div>
 
+      <div class="bamboo-divider" role="separator"></div>
+
       <!-- Extra Topics Grid -->
-      <div class="section-heading-bar" style="margin-top: 3.5rem;">
-        <div>
-          <h2 class="section-title">Computer Science & Engineering Domains</h2>
-          <p class="section-subtitle">Comprehensive subject-specific assessments for semester exams, GATE foundations, and tech rounds.</p>
-        </div>
+      <div class="section-heading-bar">
+        <h2 class="section-title">CS & Engineering Domains</h2>
+        <p class="section-subtitle">Deep-dive subject papers — GATE foundations, semester prep, tech rounds.</p>
       </div>
       <div id="extra-topic-grid" class="topic-grid">
         <!-- Dynamically rendered by app.js -->
       </div>
 
+      <div class="bamboo-divider" role="separator"></div>
+
       <!-- AI Quiz Generator Studio -->
       <div class="ai-studio-section">
         <div class="section-heading-bar">
-          <div>
-            <h2 class="section-title">AI Custom Assessment Studio</h2>
-            <p class="section-subtitle">Generate custom technical mock tests on any framework, concept, or curriculum topic using Google Gemini.</p>
-          </div>
+          <h2 class="section-title">Make your own quiz</h2>
+          <p class="section-subtitle">Type any topic, pick a difficulty. Gemini AI builds the questions. Your key, your browser, your privacy.</p>
         </div>
 
         <div id="ai-card" class="ai-studio-card">
           <div class="ai-studio-grid">
             <div class="ai-studio-form">
               <div class="ai-form-group">
-                <label for="ai-topic-input">Assessment Topic or Skill</label>
+                <label for="ai-topic-input">Topic or skill</label>
                 <input type="text" id="ai-topic-input" class="ai-input"
-                  placeholder="e.g. React Hooks, Docker & Kubernetes, SQL Window Functions, System Design">
+                  placeholder="e.g. React Hooks, Docker, SQL Window Functions, System Design…">
               </div>
 
               <div class="ai-form-row">
                 <div class="ai-form-group">
-                  <label for="ai-level-select">Difficulty Tier</label>
+                  <label for="ai-level-select">Difficulty</label>
                   <select id="ai-level-select" class="ai-select">
-                    <option value="Easy">Easy (Fundamentals)</option>
-                    <option value="Medium" selected>Medium (Standard Placement)</option>
-                    <option value="Hard">Hard (Advanced / Deep Technical)</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Hard">Hard</option>
                   </select>
                 </div>
                 <div class="ai-form-group">
-                  <label for="ai-count-select">Questions & Time Limit</label>
+                  <label for="ai-count-select">Questions</label>
                   <select id="ai-count-select" class="ai-select">
-                    <option value="5">5 Questions (3m 45s)</option>
-                    <option value="10" selected>10 Questions (7m 30s)</option>
-                    <option value="15">15 Questions (11m 15s)</option>
-                    <option value="20">20 Questions (15m 00s)</option>
+                    <option value="5">5 questions</option>
+                    <option value="10" selected>10 questions</option>
+                    <option value="15">15 questions</option>
+                    <option value="20">20 questions</option>
                   </select>
                 </div>
               </div>
 
-              <button id="btn-generate-ai-quiz" class="btn-primary-action" style="width: 100%; margin-top: 0.5rem;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                <span>Generate Custom Assessment</span>
+              <button id="btn-generate-ai-quiz" class="btn-primary-action" style="width: 100%; margin-top: 4px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                <span>Generate quiz</span>
               </button>
             </div>
 
             <!-- API Key Settings Panel -->
             <div class="ai-studio-sidebar">
               <div class="ai-sidebar-header">
-                <h4>Gemini API Settings</h4>
-                <span class="security-chip">Local Sandbox</span>
+                <h4>Gemini API key</h4>
+                <span class="security-chip">Stored locally</span>
               </div>
               <p class="ai-sidebar-desc">
-                Your API key remains securely in client-side local storage and directly calls Google APIs.
+                Your key goes straight to Google APIs from your browser. We never see it.
               </p>
               <div class="ai-form-group">
-                <input type="password" id="ai-key-input" class="ai-input" placeholder="Paste Gemini API key (AIzaSy...)">
+                <input type="password" id="ai-key-input" class="ai-input" placeholder="Paste key (AIzaSy…)">
               </div>
               <div class="ai-key-actions">
                 <label class="remember-checkbox-label">
@@ -230,7 +243,7 @@
                 <button id="btn-remove-key" class="btn-text-danger" title="Remove stored key">Clear</button>
               </div>
               <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" class="ai-studio-link">
-                Get free API key from Google AI Studio ↗
+                Get a free key from Google AI Studio ↗
               </a>
             </div>
           </div>
@@ -245,12 +258,12 @@
       <div class="pre-quiz-card">
         <div class="pre-quiz-header">
           <div>
-            <span class="pre-quiz-tag">Pre-Assessment Briefing</span>
+            <span class="pre-quiz-tag">Before you start</span>
             <h1 id="pre-quiz-title" class="pre-quiz-title">Topic Title</h1>
           </div>
           <div class="pre-quiz-brand-watermark">
             <img src="assets/logo/logo.png" alt="Nexus Logo" class="pre-quiz-logo">
-            <span>Nexus Evaluation Hub</span>
+            <span>Nexus Quiz</span>
           </div>
         </div>
 
@@ -258,38 +271,38 @@
           <div class="spec-tile">
             <span class="spec-tile-label">Questions</span>
             <div id="pre-quiz-qcount" class="spec-tile-val">15</div>
-            <span class="spec-tile-sub">Standard MCQs</span>
+            <span class="spec-tile-sub">MCQs</span>
           </div>
           <div class="spec-tile">
-            <span class="spec-tile-label">Time Limit</span>
+            <span class="spec-tile-label">Time limit</span>
             <div id="pre-quiz-time" class="spec-tile-val">11:15</div>
-            <span class="spec-tile-sub">Strict Countdown</span>
+            <span class="spec-tile-sub">Strict countdown</span>
           </div>
           <div class="spec-tile">
-            <span class="spec-tile-label">Evaluation Mode</span>
-            <div id="pre-quiz-mode" class="spec-tile-val">Exam Mode</div>
-            <span class="spec-tile-sub">Automated Scoring</span>
+            <span class="spec-tile-label">Mode</span>
+            <div id="pre-quiz-mode" class="spec-tile-val">Exam</div>
+            <span class="spec-tile-sub">Auto scoring</span>
           </div>
           <div class="spec-tile">
-            <span class="spec-tile-label">Marking Scheme</span>
-            <div class="spec-tile-val" style="color: var(--color-success);">+1 / 0</div>
-            <span class="spec-tile-sub">No Negative Marking</span>
+            <span class="spec-tile-label">Marking</span>
+            <div class="spec-tile-val" style="color: var(--bamboo);">+1 / 0</div>
+            <span class="spec-tile-sub">No negatives</span>
           </div>
         </div>
 
         <div class="pre-quiz-guidelines">
-          <h3>Assessment Guidelines & Candidate Instructions</h3>
+          <h3>Quick rules</h3>
           <ul class="rules-list">
-            <li><strong>Auto-Submit Timer:</strong> The countdown starts immediately when you click <em>Begin Assessment</em>. When time reaches 00:00, your responses auto-submit.</li>
-            <li><strong>Question Navigation:</strong> Use the <em>Question Palette</em> to jump between questions or check marked items at any time.</li>
-            <li><strong>Keyboard Accessibility:</strong> Use keys <code>1-4</code> or <code>A-D</code> to select options, <code>M</code> to mark for review, and <code>Arrow Left/Right</code> to navigate.</li>
-            <li><strong>Mark for Review:</strong> Flag questions you wish to double-check before submission; flagged questions remain saved.</li>
+            <li><strong>Timer starts</strong> the moment you click "Start the clock." It does not pause.</li>
+            <li><strong>Auto-submit</strong> — when the timer hits 00:00, your answers lock automatically.</li>
+            <li><strong>Question Palette</strong> — jump to any question or flag one for review.</li>
+            <li><strong>Keyboard shortcuts</strong> — keys <code>1–4</code> / <code>A–D</code> pick options, <code>M</code> flags, arrow keys navigate.</li>
           </ul>
         </div>
 
         <div class="pre-quiz-actions">
-          <button class="btn-secondary-action" onclick="NexusQuiz.showScreen(1)">← Return to Dashboard</button>
-          <button class="btn-primary-action" onclick="NexusQuiz.startQuiz()">Begin Assessment Now →</button>
+          <button class="btn-secondary-action" onclick="NexusQuiz.showScreen(1)">← Back</button>
+          <button class="btn-primary-action" onclick="NexusQuiz.startQuiz()">Start the clock →</button>
         </div>
       </div>
     </section>
@@ -298,41 +311,42 @@
          SCREEN 3: ACTIVE COMPUTER-BASED TEST (CBT)
          ========================================== -->
     <section id="screen-3" class="screen-section hidden">
+      <!-- Sticky top bar (replaces quiz-header-bar) -->
+      <div class="quiz-sticky-bar" id="quiz-sticky-bar">
+        <span class="quiz-topic-name" id="quiz-topic-name-bar">Quiz</span>
+        <div class="quiz-timer-box" id="quiz-timer-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="quiz-timer">11:15</span>
+        </div>
+        <div class="quiz-progress-counter">
+          <span id="quiz-diff-badge" class="badge badge-medium">MED</span>
+          &nbsp;<span id="quiz-progress-text">Q 1 / 15</span>
+        </div>
+      </div>
+
       <!-- Top Mobile Toggle for Palette -->
       <div class="mobile-palette-toggle mobile-only">
-        <button class="btn-secondary-action" onclick="NexusQuiz.toggleMobilePalette()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          <span>Open Question Palette</span>
+        <button class="btn-secondary-action" id="btn-open-palette-mobile" onclick="NexusQuiz.toggleMobilePalette()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Question Paper</span>
+          <span id="palette-open-badge" class="lang-shortcut-chip" style="margin-left:4px;">0</span>
         </button>
       </div>
 
       <div class="quiz-layout-grid">
         <!-- Main Question Area -->
         <div class="quiz-main-card">
-          <div class="quiz-header-bar">
-            <div class="quiz-header-left">
-              <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="quiz-header-logo" title="Nexus Quiz">
-              <div class="quiz-progress-meta">
-                <span id="quiz-diff-badge" class="badge badge-medium">MEDIUM</span>
-                <span id="quiz-progress-text" class="quiz-step-text">Question 1 of 15</span>
-              </div>
-            </div>
-            <div class="quiz-timer-box">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span id="quiz-timer">11:15</span>
-            </div>
-          </div>
-
-          <!-- Thin Progress Bar -->
+          <!-- Thin progress bar -->
           <div class="progress-container">
             <div id="quiz-progress-bar" class="progress-fill"></div>
           </div>
 
-          <!-- Question Content Card -->
+          <!-- Question Content -->
           <div class="question-card">
+            <div id="quiz-question-number" class="question-number">01</div>
             <h2 id="quiz-q-text" class="question-text">Question text goes here?</h2>
 
-            <pre id="quiz-code-block" class="code-snippet hidden"><code>// C code snippet</code></pre>
+            <pre id="quiz-code-block" class="code-snippet hidden"><code>// code snippet</code></pre>
 
             <div id="quiz-options-container" class="options-grid">
               <!-- Options A, B, C, D rendered dynamically -->
@@ -345,13 +359,28 @@
           <!-- Action Controls Bar -->
           <div class="quiz-controls-bar">
             <div class="quiz-nav-group">
-              <button id="btn-prev-q" class="btn-control btn-control-nav" onclick="NexusQuiz.navigateQuestion('prev')">← Prev</button>
-              <button id="btn-next-q" class="btn-control btn-control-nav btn-control-primary" onclick="NexusQuiz.navigateQuestion('next')">Next →</button>
+              <button id="btn-prev-q" class="btn-control btn-control-nav" onclick="NexusQuiz.navigateQuestion('prev')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                Prev
+              </button>
+              <button id="btn-next-q" class="btn-control btn-control-primary" onclick="NexusQuiz.navigateQuestion('next')">
+                Next
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
             </div>
             <div class="quiz-action-group">
-              <button id="btn-mark-review" class="btn-control" onclick="NexusQuiz.toggleMarkForReview()">Flag Review (M)</button>
-              <button id="btn-clear-q" class="btn-control" onclick="NexusQuiz.clearResponse()">Clear</button>
-              <button id="btn-submit-quiz" class="btn-control btn-submit-test" onclick="NexusQuiz.openSubmitModal()">Submit Test</button>
+              <button id="btn-mark-review" class="btn-control" onclick="NexusQuiz.toggleMarkForReview()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                Mark (M)
+              </button>
+              <button id="btn-clear-q" class="btn-control" onclick="NexusQuiz.clearResponse()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                Clear
+              </button>
+              <button id="btn-submit-quiz" class="btn-control btn-submit-test" onclick="NexusQuiz.openSubmitModal()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Submit
+              </button>
             </div>
           </div>
         </div>
@@ -359,8 +388,10 @@
         <!-- Question Palette Sidebar -->
         <div id="quiz-sidebar" class="quiz-sidebar">
           <div class="sidebar-header">
-            <h3>Question Palette</h3>
-            <button class="icon-close-btn mobile-only" onclick="NexusQuiz.toggleMobilePalette()">✕</button>
+            <h3>Question Paper</h3>
+            <button class="icon-close-btn" onclick="NexusQuiz.toggleMobilePalette()" aria-label="Close palette">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
 
           <!-- Legend with Live Counts -->
@@ -368,7 +399,7 @@
             <div class="legend-item"><span class="legend-dot answered"></span> Answered (<strong id="legend-answered-count">0</strong>)</div>
             <div class="legend-item"><span class="legend-dot marked"></span> Flagged (<strong id="legend-marked-count">0</strong>)</div>
             <div class="legend-item"><span class="legend-dot visited"></span> Visited (<strong id="legend-visited-count">0</strong>)</div>
-            <div class="legend-item"><span class="legend-dot unvisited"></span> Unvisited (<strong id="legend-unvisited-count">0</strong>)</div>
+            <div class="legend-item"><span class="legend-dot unvisited"></span> Not seen (<strong id="legend-unvisited-count">0</strong>)</div>
           </div>
 
           <!-- Grid of Question Numbers -->
@@ -384,12 +415,15 @@
          ========================================== -->
     <section id="screen-4" class="screen-section hidden">
       <div class="result-hero-card">
+        <!-- Stamp -->
+        <div id="result-stamp" class="result-stamp passed">Passed</div>
+
         <div class="scorecard-header">
           <div class="scorecard-brand">
             <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="scorecard-logo">
-            <div class="scorecard-brand-text">
-              <span class="scorecard-title">Nexus Assessment Platform</span>
-              <span class="scorecard-subtitle">Official Candidate Performance Report</span>
+            <div>
+              <span class="scorecard-title">Nexus Quiz</span>
+              <span class="scorecard-subtitle">Performance Report</span>
             </div>
           </div>
           <span id="result-perf-chip" class="badge badge-success">Outstanding</span>
@@ -398,7 +432,7 @@
         <div class="scorecard-summary-row">
           <!-- Score Display -->
           <div class="scorecard-stat-block">
-            <span class="stat-block-label">TOTAL SCORE</span>
+            <span class="stat-block-label">Total Score</span>
             <div class="result-score-display">
               <span id="result-score-val" class="result-score-val">0</span>
               <span id="result-score-total" class="result-score-total">/ 15</span>
@@ -407,11 +441,11 @@
 
           <!-- Circular Accuracy Ring -->
           <div class="scorecard-stat-block">
-            <span class="stat-block-label">ACCURACY RATING</span>
+            <span class="stat-block-label">Accuracy</span>
             <div class="accuracy-ring-box">
-              <svg class="accuracy-ring-svg" width="130" height="130">
-                <circle class="ring-bg" cx="65" cy="65" r="50"></circle>
-                <circle id="accuracy-ring-circle" class="ring-fill" cx="65" cy="65" r="50"></circle>
+              <svg class="accuracy-ring-svg" width="120" height="120">
+                <circle class="ring-bg" cx="60" cy="60" r="50"></circle>
+                <circle id="accuracy-ring-circle" class="ring-fill" cx="60" cy="60" r="50"></circle>
               </svg>
               <div id="accuracy-ring-text" class="ring-text">0%</div>
             </div>
@@ -421,45 +455,45 @@
         <!-- Breakdown Grid -->
         <div class="result-breakdown-grid">
           <div class="breakdown-card">
-            <small class="breakdown-label">Duration Used</small>
+            <small class="breakdown-label">Time taken</small>
             <div id="result-time-taken" class="breakdown-val">05:30</div>
           </div>
           <div class="breakdown-card">
-            <small class="breakdown-label">Correct Answers</small>
-            <div id="result-correct-count" class="breakdown-val" style="color: var(--color-success);">0</div>
+            <small class="breakdown-label">Correct</small>
+            <div id="result-correct-count" class="breakdown-val" style="color: var(--bamboo);">0</div>
           </div>
           <div class="breakdown-card">
-            <small class="breakdown-label">Incorrect Answers</small>
-            <div id="result-wrong-count" class="breakdown-val" style="color: var(--color-danger);">0</div>
+            <small class="breakdown-label">Wrong</small>
+            <div id="result-wrong-count" class="breakdown-val" style="color: var(--danger);">0</div>
           </div>
           <div class="breakdown-card">
             <small class="breakdown-label">Skipped / Flagged</small>
             <div class="breakdown-val">
-              <span id="result-skipped-count" style="color: var(--color-warning);">0</span> /
-              <span id="result-marked-count" style="color: var(--color-review);">0</span>
+              <span id="result-skipped-count" style="color: var(--amber);">0</span> /
+              <span id="result-marked-count" style="color: var(--review-purple);">0</span>
             </div>
           </div>
         </div>
 
         <!-- Result Action Buttons -->
         <div class="result-actions-strip">
-          <button class="btn-primary-action" onclick="NexusQuiz.retryQuiz(false)">Retake Assessment</button>
-          <button class="btn-secondary-action" onclick="NexusQuiz.retryQuiz(true)">Practice Incorrect Only</button>
-          <button class="btn-secondary-action" onclick="NexusQuiz.showScreen(1)">Return to Dashboard</button>
+          <button class="btn-primary-action" onclick="NexusQuiz.retryQuiz(false)">Retake this quiz</button>
+          <button class="btn-secondary-action" onclick="NexusQuiz.retryQuiz(true)">Practice wrong only</button>
+          <button class="btn-secondary-action" onclick="NexusQuiz.showScreen(1)">Back to topics</button>
           <button id="btn-print-result" class="btn-secondary-action" onclick="window.print()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            <span>Export PDF / Print</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <span>Print / PDF</span>
           </button>
         </div>
       </div>
 
       <!-- Detailed Review Section -->
       <div class="review-section">
-        <h2 class="section-title">Itemized Analysis & Solutions</h2>
+        <h2 class="section-title">Review your answers</h2>
         <div class="review-tabs">
-          <button class="review-tab active" data-filter="all" onclick="NexusQuiz.renderReviewSection('all')">All Items</button>
+          <button class="review-tab active" data-filter="all" onclick="NexusQuiz.renderReviewSection('all')">All</button>
           <button class="review-tab" data-filter="correct" onclick="NexusQuiz.renderReviewSection('correct')">Correct</button>
-          <button class="review-tab" data-filter="wrong" onclick="NexusQuiz.renderReviewSection('wrong')">Incorrect</button>
+          <button class="review-tab" data-filter="wrong" onclick="NexusQuiz.renderReviewSection('wrong')">Wrong</button>
           <button class="review-tab" data-filter="skipped" onclick="NexusQuiz.renderReviewSection('skipped')">Skipped</button>
           <button class="review-tab" data-filter="marked" onclick="NexusQuiz.renderReviewSection('marked')">Flagged</button>
         </div>
@@ -479,10 +513,8 @@
         <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="footer-logo">
         <span class="footer-title">Nexus Quiz</span>
       </div>
-      <p class="footer-tagline">Engineered for Campus Placements, Competitive MCQ Prep & Performance Analytics.</p>
-      <div class="footer-copy">
-        &copy; 2026 Nexus Quiz. All rights reserved.
-      </div>
+      <p class="footer-tagline">Built for campus placements & competitive MCQ prep.</p>
+      <div class="footer-copy">&copy; 2026 Nexus Quiz. All rights reserved.</div>
     </div>
   </footer>
 
@@ -496,56 +528,58 @@
       <div class="modal-header">
         <div class="modal-header-brand">
           <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="modal-title-logo">
-          <h3>Confirm Assessment Submission</h3>
+          <h3>Submit now?</h3>
         </div>
-        <button class="icon-close-btn" onclick="NexusQuiz.closeSubmitModal()">✕</button>
+        <button class="icon-close-btn" onclick="NexusQuiz.closeSubmitModal()" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
-      <p class="modal-desc">
-        Are you sure you want to finalize and lock your answers? The test will be scored immediately.
+      <p class="modal-desc" id="submit-modal-desc">
+        Your answers will lock in. This can't be undone.
       </p>
 
       <div class="submit-summary-grid">
         <div class="submit-stat-tile">
           <small>Answered</small>
-          <div id="submit-modal-answered" class="submit-stat-num" style="color: var(--color-success);">0</div>
+          <div id="submit-modal-answered" class="submit-stat-num" style="color: var(--bamboo);">0</div>
         </div>
         <div class="submit-stat-tile">
-          <small>Unanswered</small>
-          <div id="submit-modal-unanswered" class="submit-stat-num" style="color: var(--color-warning);">0</div>
+          <small>Blank</small>
+          <div id="submit-modal-unanswered" class="submit-stat-num" style="color: var(--amber);">0</div>
         </div>
         <div class="submit-stat-tile">
           <small>Flagged</small>
-          <div id="submit-modal-marked" class="submit-stat-num" style="color: var(--color-review);">0</div>
+          <div id="submit-modal-marked" class="submit-stat-num" style="color: var(--review-purple);">0</div>
         </div>
       </div>
 
       <div class="modal-actions">
-        <button class="btn-secondary-action" onclick="NexusQuiz.closeSubmitModal()">Return to Test</button>
-        <button class="btn-primary-action" onclick="NexusQuiz.confirmSubmitQuiz()">Confirm & Submit</button>
+        <button class="btn-secondary-action" onclick="NexusQuiz.closeSubmitModal()">Go back</button>
+        <button class="btn-primary-action" onclick="NexusQuiz.confirmSubmitQuiz()">Yes, submit</button>
       </div>
     </div>
   </div>
 
   <!-- History Panel Modal -->
   <div id="modal-history" class="modal-overlay hidden">
-    <div class="modal-card" style="max-width: 600px;">
+    <div class="modal-card" style="max-width: 580px;">
       <div class="modal-header">
         <div class="modal-header-brand">
           <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="modal-title-logo">
-          <h3>Assessment Attempt History</h3>
+          <h3>Past attempts</h3>
         </div>
-        <button class="icon-close-btn" onclick="NexusQuiz.closeHistoryModal()">✕</button>
+        <button class="icon-close-btn" onclick="NexusQuiz.closeHistoryModal()" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
-      <p class="modal-desc">
-        Your last 10 quiz attempts recorded locally on this device.
-      </p>
+      <p class="modal-desc">Last 10 quizzes, stored on this device only.</p>
 
       <div id="history-list-container" class="history-list-scroll">
         <!-- History rows rendered by app.js -->
       </div>
 
       <div class="modal-actions">
-        <button class="btn-secondary-action" onclick="NexusQuiz.clearHistory()">Clear History</button>
+        <button class="btn-secondary-action" onclick="NexusQuiz.clearHistory()">Clear history</button>
         <button class="btn-primary-action" onclick="NexusQuiz.closeHistoryModal()">Close</button>
       </div>
     </div>
@@ -553,20 +587,20 @@
 
   <!-- Guided Tour Offer Modal -->
   <div id="modal-tour-offer" class="modal-overlay hidden">
-    <div class="modal-card" style="text-align: center; max-width: 480px;">
+    <div class="modal-card" style="text-align: center; max-width: 460px;">
       <div class="tour-modal-brand">
         <img src="assets/logo/logo.png" alt="Nexus Quiz Logo" class="tour-modal-logo">
-        <span>Platform Walkthrough</span>
+        <span>Quick tour</span>
       </div>
-      <h3 style="margin-top: 0.8rem; font-size: 1.3rem;">Welcome to Nexus Quiz</h3>
-      <p class="modal-desc" style="margin: 0.8rem auto 1.5rem auto;">
-        Would you like a 1-minute guided walkthrough of the assessment modes, timer controls, and question palette?
+      <h3 style="margin-top: 16px; font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; letter-spacing: -0.03em;">One minute, then you're on your own.</h3>
+      <p class="modal-desc" style="margin: 12px auto 20px;">
+        Want a quick walk through the timer, question palette, and mode switch before diving in?
       </p>
-      <div class="modal-actions" style="justify-content: center;">
+      <div class="modal-actions" style="justify-content: center; gap: 12px;">
         <button class="btn-secondary-action"
-          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1);">Skip Walkthrough</button>
+          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1);">Skip it</button>
         <button class="btn-primary-action"
-          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1); window.Nexi.startTour();">Start Walkthrough →</button>
+          onclick="document.getElementById('modal-tour-offer').classList.add('hidden'); NexusQuiz.showScreen(1); window.Nexi.startTour();">Show me around →</button>
       </div>
     </div>
   </div>
