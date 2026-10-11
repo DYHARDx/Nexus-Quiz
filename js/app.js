@@ -765,28 +765,43 @@ window.NexusQuiz = (function () {
 
     // Animate Score Counter (0 to final)
     animateScoreNumber("result-score-val", 0, score, 1200);
-    document.getElementById("result-score-total").textContent = `/ ${totalCount}`;
+    const scoreTotalElem = document.getElementById("result-score-total");
+    if (scoreTotalElem) scoreTotalElem.textContent = `/ ${totalCount}`;
     
     // Circular SVG Ring for Accuracy
     animateAccuracyRing(accuracyPercent);
 
-    // Performance Badge & Roast
+    // Dynamic Official Verification Stamp & Performance Badge
     let perfLabel = "Needs Practice";
     let perfClass = "badge-danger";
     let reactionEvent = "result_needs_practice";
+    let stampText = "NEEDS WORK";
+    let stampClass = "result-stamp needs-work";
 
     if (scorePercent >= 90) {
       perfLabel = "Outstanding";
       perfClass = "badge-success";
       reactionEvent = "result_outstanding";
+      stampText = "OUTSTANDING";
+      stampClass = "result-stamp passed";
     } else if (scorePercent >= 70) {
       perfLabel = "Great";
       perfClass = "badge-primary";
       reactionEvent = "result_great";
+      stampText = "QUALIFIED";
+      stampClass = "result-stamp passed";
     } else if (scorePercent >= 50) {
       perfLabel = "Good";
       perfClass = "badge-warning";
       reactionEvent = "result_good";
+      stampText = "AVERAGE";
+      stampClass = "result-stamp keep-going";
+    }
+
+    const stampElem = document.getElementById("result-stamp");
+    if (stampElem) {
+      stampElem.textContent = stampText;
+      stampElem.className = stampClass;
     }
 
     const perfChip = document.getElementById("result-perf-chip");
@@ -795,11 +810,74 @@ window.NexusQuiz = (function () {
       perfChip.className = `badge ${perfClass}`;
     }
 
-    document.getElementById("result-time-taken").textContent = formatTime(timeTaken);
-    document.getElementById("result-correct-count").textContent = correctCount;
-    document.getElementById("result-wrong-count").textContent = wrongCount;
-    document.getElementById("result-skipped-count").textContent = skippedCount;
-    document.getElementById("result-marked-count").textContent = markedCount;
+    const topicBadge = document.getElementById("result-topic-badge");
+    if (topicBadge) {
+      topicBadge.textContent = state.topicName || "Technical Assessment";
+    }
+
+    // Dynamic Evaluation Verdict & Pace
+    const verdictTitle = document.getElementById("result-verdict-title");
+    const verdictDesc = document.getElementById("result-verdict-desc");
+    if (verdictTitle && verdictDesc) {
+      if (scorePercent >= 90) {
+        verdictTitle.textContent = "Placement Ready! Master Level";
+        verdictDesc.textContent = "Superb technical accuracy. Speed and conceptual precision align with top tier hiring benchmarks.";
+      } else if (scorePercent >= 70) {
+        verdictTitle.textContent = "Competitive Cutoff Cleared";
+        verdictDesc.textContent = "Strong performance. You comfortably cleared the standard cutoff. Review flagged questions to eliminate minor slips.";
+      } else if (scorePercent >= 50) {
+        verdictTitle.textContent = "Foundational Knowledge Present";
+        verdictDesc.textContent = "Baseline score achieved, but speed or precision needs work. Review incorrect answers below before re-attempting.";
+      } else {
+        verdictTitle.textContent = "Focused Revision Recommended";
+        verdictDesc.textContent = "Score fell below the 60% qualification cutoff. Deep-dive into detailed step-by-step explanations below to fix concept gaps.";
+      }
+    }
+
+    const avgPace = attemptedCount > 0 ? Math.round(timeTaken / attemptedCount) : 0;
+    const paceElem = document.getElementById("result-pace-val");
+    if (paceElem) {
+      paceElem.textContent = avgPace > 0 ? `${avgPace}s / MCQ` : `--`;
+    }
+
+    const timeTakenElem = document.getElementById("result-time-taken");
+    if (timeTakenElem) timeTakenElem.textContent = formatTime(timeTaken);
+
+    const correctElem = document.getElementById("result-correct-count");
+    if (correctElem) correctElem.textContent = correctCount;
+
+    const wrongElem = document.getElementById("result-wrong-count");
+    if (wrongElem) wrongElem.textContent = wrongCount;
+
+    const skippedElem = document.getElementById("result-skipped-count");
+    if (skippedElem) skippedElem.textContent = skippedCount;
+
+    const markedElem = document.getElementById("result-marked-count");
+    if (markedElem) markedElem.textContent = markedCount;
+
+    // Review Tab Counts
+    const tabAll = document.getElementById("tab-pill-all");
+    const tabCorrect = document.getElementById("tab-pill-correct");
+    const tabWrong = document.getElementById("tab-pill-wrong");
+    const tabSkipped = document.getElementById("tab-pill-skipped");
+    const tabMarked = document.getElementById("tab-pill-marked");
+    if (tabAll) tabAll.textContent = totalCount;
+    if (tabCorrect) tabCorrect.textContent = correctCount;
+    if (tabWrong) tabWrong.textContent = wrongCount;
+    if (tabSkipped) tabSkipped.textContent = skippedCount;
+    if (tabMarked) tabMarked.textContent = markedCount;
+
+    // Smart button state for Practice Mistakes
+    const mistakesBtn = document.querySelector(".btn-action-mistakes");
+    if (mistakesBtn) {
+      if (wrongCount === 0) {
+        mistakesBtn.style.opacity = "0.5";
+        mistakesBtn.style.pointerEvents = "none";
+      } else {
+        mistakesBtn.style.opacity = "1";
+        mistakesBtn.style.pointerEvents = "auto";
+      }
+    }
 
     // Trigger Confetti Burst if score >= 70%
     if (scorePercent >= 70) {
@@ -810,6 +888,44 @@ window.NexusQuiz = (function () {
     renderReviewSection("all");
 
     if (window.Nexi) window.Nexi.react(reactionEvent);
+  }
+
+  function renderResultScreen() {
+    // Safe hook when screen 4 is activated
+  }
+
+  function shareResults() {
+    const score = state.userAnswers.filter((a, i) => a === state.questions[i].answer).length;
+    const total = state.questions.length;
+    const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+    const timeStr = document.getElementById("result-time-taken")?.textContent || "--";
+    const text = `🎯 Nexus Quiz Assessment Report\n📘 Topic: ${state.topicName || "Assessment"}\n⭐ Score: ${score}/${total} (${pct}%)\n⏱️ Time Taken: ${timeStr}\n\nPrepared for Campus Placement Prep with Nexus Quiz.`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("📋 Score summary copied to clipboard!");
+      }).catch(() => {
+        window.prompt("Copy your assessment score:", text);
+      });
+    } else {
+      window.prompt("Copy your assessment score:", text);
+    }
+  }
+
+  function showToast(msg) {
+    let toast = document.getElementById("nexus-quiz-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "nexus-quiz-toast";
+      toast.className = "nexus-toast";
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2800);
   }
 
   function animateScoreNumber(elemId, start, end, duration) {
@@ -833,7 +949,7 @@ window.NexusQuiz = (function () {
     const text = document.getElementById("accuracy-ring-text");
     if (!circle || !text) return;
 
-    const radius = 54;
+    const radius = 50;
     const circumference = 2 * Math.PI * radius;
     circle.style.strokeDasharray = `${circumference} ${circumference}`;
 
@@ -1220,7 +1336,9 @@ window.NexusQuiz = (function () {
     openHistoryModal,
     closeHistoryModal,
     clearHistory,
-    handleVoiceCommand
+    handleVoiceCommand,
+    shareResults,
+    showToast
   };
 })();
 
