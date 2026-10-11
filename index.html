@@ -452,36 +452,55 @@
 
         <!-- Question Palette Sidebar -->
         <div id="quiz-sidebar" class="quiz-sidebar">
-          <!-- CBT Sidebar Header: Timer & Question Status directly above Question Paper -->
-          <div class="sidebar-cbt-header">
-            <!-- Timer Box -->
-            <div class="sidebar-timer-card" id="quiz-timer-wrap">
-              <div class="sidebar-card-meta">
-                <span class="cbt-meta-label">Time Remaining</span>
-                <span class="cbt-live-dot" title="Live Countdown"></span>
+          <!-- Unified CBT HUD: Timer & Question Status in a sleek single card -->
+          <div class="sidebar-cbt-hud" id="quiz-timer-wrap">
+            <div class="hud-metrics-row">
+              <!-- Timer Block -->
+              <div class="hud-metric-card hud-timer-card">
+                <div class="hud-metric-header">
+                  <span class="hud-live-indicator">
+                    <span class="hud-live-dot"></span>
+                    <span class="hud-meta-label">Time Left</span>
+                  </span>
+                </div>
+                <div class="hud-timer-display">
+                  <svg class="timer-clock-icon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <span id="quiz-timer" class="cbt-timer-digits">15:00</span>
+                </div>
               </div>
-              <div class="sidebar-timer-clock">
-                <svg class="timer-clock-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                <span id="quiz-timer" class="cbt-timer-digits">15:00</span>
-              </div>
-              <div class="timer-progress-track">
-                <div id="timer-progress-fill" class="timer-progress-fill"></div>
+
+              <!-- Question Counter Block -->
+              <div class="hud-metric-card hud-q-card">
+                <div class="hud-metric-header">
+                  <span class="hud-meta-label">Active</span>
+                  <span id="quiz-diff-badge" class="badge badge-medium">MED</span>
+                </div>
+                <div class="hud-q-display">
+                  <span id="quiz-progress-text" class="cbt-q-number-text">Question 1 of 20</span>
+                </div>
               </div>
             </div>
 
-            <!-- Current Question Status Card -->
-            <div class="sidebar-current-q-card">
-              <div class="sidebar-card-meta">
-                <span class="cbt-meta-label">Current Question</span>
-                <span id="quiz-diff-badge" class="badge badge-medium">MED</span>
-              </div>
-              <div class="sidebar-q-row">
-                <span id="quiz-progress-text" class="cbt-q-number-text">Question 1 of 20</span>
-              </div>
+            <!-- Glowing Countdown Bar -->
+            <div class="timer-progress-track">
+              <div id="timer-progress-fill" class="timer-progress-fill"></div>
+            </div>
+          </div>
+
+          <!-- Section Header for Palette -->
+          <div class="palette-section-header">
+            <div class="palette-header-left">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+                <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+                <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+              </svg>
+              <h4>Question Palette</h4>
             </div>
           </div>
 
@@ -489,14 +508,34 @@
 
           <!-- Legend with Live Counts -->
           <div class="palette-legend">
-            <div class="legend-item"><span class="legend-dot answered"></span> Answered (<strong
-                id="legend-answered-count">0</strong>)</div>
-            <div class="legend-item"><span class="legend-dot marked"></span> Flagged (<strong
-                id="legend-marked-count">0</strong>)</div>
-            <div class="legend-item"><span class="legend-dot visited"></span> Visited (<strong
-                id="legend-visited-count">0</strong>)</div>
-            <div class="legend-item"><span class="legend-dot unvisited"></span> Not seen (<strong
-                id="legend-unvisited-count">0</strong>)</div>
+            <div class="legend-chip legend-chip-answered">
+              <div class="legend-chip-left">
+                <span class="legend-dot answered"></span>
+                <span class="legend-chip-title">Answered</span>
+              </div>
+              <strong id="legend-answered-count" class="legend-badge">0</strong>
+            </div>
+            <div class="legend-chip legend-chip-marked">
+              <div class="legend-chip-left">
+                <span class="legend-dot marked"></span>
+                <span class="legend-chip-title">Flagged</span>
+              </div>
+              <strong id="legend-marked-count" class="legend-badge">0</strong>
+            </div>
+            <div class="legend-chip legend-chip-visited">
+              <div class="legend-chip-left">
+                <span class="legend-dot visited"></span>
+                <span class="legend-chip-title">Visited</span>
+              </div>
+              <strong id="legend-visited-count" class="legend-badge">0</strong>
+            </div>
+            <div class="legend-chip legend-chip-unvisited">
+              <div class="legend-chip-left">
+                <span class="legend-dot unvisited"></span>
+                <span class="legend-chip-title">Unseen</span>
+              </div>
+              <strong id="legend-unvisited-count" class="legend-badge">0</strong>
+            </div>
           </div>
 
           <!-- Grid of Question Numbers -->

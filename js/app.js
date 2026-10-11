@@ -419,7 +419,7 @@ window.NexusQuiz = (function () {
     // Header & Question number updates
     const progressText = document.getElementById("quiz-progress-text");
     if (progressText) {
-      progressText.textContent = `Question ${qIndex + 1} of ${state.questions.length}`;
+      progressText.innerHTML = `Q ${qIndex + 1} <span style="font-size:0.8em; opacity:0.65; font-weight:600;">/ ${state.questions.length}</span>`;
     }
 
     const mobileProg = document.getElementById("mobile-quiz-progress");
@@ -622,22 +622,17 @@ window.NexusQuiz = (function () {
       if (!isVisited) unvisitedCount++;
 
       let itemClass = "palette-item";
-      let iconSymbol = "⚪";
 
       if (isAnswered) {
         itemClass += " answered";
-        iconSymbol = "✓";
       } else if (isVisited) {
         itemClass += " visited";
-        iconSymbol = "▢";
       } else {
         itemClass += " unvisited";
-        iconSymbol = "○";
       }
 
       if (isMarked) {
         itemClass += " marked";
-        iconSymbol = "🚩";
       }
 
       if (isCurrent) {
@@ -645,14 +640,14 @@ window.NexusQuiz = (function () {
       }
 
       const itemBtn = document.createElement("button");
+      itemBtn.type = "button";
       itemBtn.className = itemClass;
-      itemBtn.setAttribute("aria-label", `Question ${idx + 1}: ${isAnswered ? "Answered" : "Unanswered"}`);
+      itemBtn.setAttribute("aria-label", `Question ${idx + 1}: ${isAnswered ? "Answered" : isVisited ? "Visited" : "Not seen"}${isMarked ? ", Flagged" : ""}`);
       itemBtn.onclick = () => jumpToQuestion(idx);
 
       itemBtn.innerHTML = `
         <span class="palette-num">${idx + 1}</span>
-        <span class="palette-icon">${iconSymbol}</span>
-        ${isMarked && isAnswered ? `<span class="palette-dot"></span>` : ""}
+        ${isMarked ? `<span class="palette-flag-pip" title="Flagged for Review"></span>` : ""}
       `;
 
       grid.appendChild(itemBtn);
