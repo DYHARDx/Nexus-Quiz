@@ -1234,6 +1234,7 @@ window.NexusQuiz = (function () {
 
     // Replay tour
     document.getElementById("btn-replay-tour")?.addEventListener("click", () => {
+      closeHistoryModal();
       if (window.Nexi) window.Nexi.startTour();
     });
 

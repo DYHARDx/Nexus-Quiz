@@ -64,7 +64,7 @@ window.Nexi = (function () {
         </div>
         <div class="nexi-bubble-arrow"></div>
       </div>
-      <div id="nexi-avatar-wrapper" class="nexi-avatar-wrapper" title="Click to talk to Nexi!">
+      <div id="nexi-avatar-wrapper" class="nexi-avatar-wrapper" role="button" tabindex="0" title="Click to talk to Nexi!" aria-label="Talk to Nexi, AI companion">
         <img id="nexi-img" src="assets/nexi/idle.png" alt="Nexi the Panda Mascot" class="nexi-img"/>
         <div id="nexi-emoji-fallback" class="nexi-emoji-fallback hidden">🐼</div>
         <div id="nexi-pulse-ring" class="nexi-pulse-ring"></div>
@@ -100,7 +100,7 @@ window.Nexi = (function () {
     chatPanel.innerHTML = `
       <div class="nexi-chat-header">
         <div class="nexi-chat-header-title">
-          <div class="nexi-chat-avatar"><img src="assets/logo/logo.png" style="width:22px;height:22px;border-radius:4px;display:block;"></div>
+          <div class="nexi-chat-avatar"><img src="assets/nexi/idle.png" alt="Nexi" style="width:28px;height:28px;object-fit:cover;object-position:center 10%;border-radius:50%;display:block;border:1.5px solid var(--bamboo);background:var(--bg-base);"></div>
           <div>
             <strong>Nexus AI Assistant & Proctor</strong>
             <small id="nexi-chat-status">Ready to assist with questions & navigation</small>
@@ -144,10 +144,19 @@ window.Nexi = (function () {
   }
 
   function setupEventListeners() {
-    // Click Nexi to open chat drawer
-    document.getElementById("nexi-avatar-wrapper").addEventListener("click", () => {
-      toggleChatPanel();
-    });
+    // Click / Enter Nexi to open chat drawer
+    const avatarWrapper = document.getElementById("nexi-avatar-wrapper");
+    if (avatarWrapper) {
+      avatarWrapper.addEventListener("click", () => {
+        toggleChatPanel();
+      });
+      avatarWrapper.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleChatPanel();
+        }
+      });
+    }
 
     // Chat close
     document.getElementById("nexi-chat-close").addEventListener("click", () => {
@@ -298,6 +307,10 @@ window.Nexi = (function () {
     if (isReduced) return; // Reduced Nexi mode hides ambient bubbles
 
     setPose(pose);
+    if (isTourActive) {
+      elements.bubble.classList.add("hidden");
+      return;
+    }
     elements.bubble.classList.remove("hidden");
     elements.text.textContent = "";
 
@@ -338,8 +351,9 @@ window.Nexi = (function () {
     }
 
     const rect = target.getBoundingClientRect();
-    const containerWidth = 140;
+    const containerWidth = 90;
     const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
 
     let targetLeft = rect.right + 20;
     let chosenPose = "point-left";
@@ -349,9 +363,9 @@ window.Nexi = (function () {
       chosenPose = "point-right";
     }
 
-    let targetTop = Math.max(80, rect.top + window.scrollY - 30);
+    let targetTop = Math.max(16, Math.min(viewportHeight - 110, rect.top));
 
-    elements.container.style.position = "absolute";
+    elements.container.style.position = "fixed";
     elements.container.style.left = `${targetLeft}px`;
     elements.container.style.top = `${targetTop}px`;
     elements.container.style.bottom = "auto";
@@ -404,16 +418,155 @@ window.Nexi = (function () {
   /**
    * GUIDED TOUR ENGINE
    */
+  let tourScrollDebounce = null;
+
+  function handleTourScrollOrResize() {
+    if (!isTourActive) return;
+    if (tourScrollDebounce) cancelAnimationFrame(tourScrollDebounce);
+    tourScrollDebounce = requestAnimationFrame(() => {
+      const tourData = window.NEXI_SCRIPT[currentLang]?.tour || window.NEXI_SCRIPT.en.tour;
+      const step = tourData && tourData[tourCurrentStep];
+      if (!step) return;
+      const target = getTourTarget(step.target);
+      if (target) {
+        positionTourElements(target);
+      }
+    });
+  }
+
+  function handleTourKeydown(e) {
+    if (!isTourActive) return;
+    if (e.key === "Escape") {
+      stopTour();
+    } else if (e.key === "ArrowRight") {
+      nextTourStep();
+    } else if (e.key === "ArrowLeft") {
+      prevTourStep();
+    }
+  }
+
+  function getTourTarget(selector) {
+    if (selector === "#app-header" || selector === ".header-nav") {
+      return document.querySelector(".header-nav") || document.querySelector("#app-header");
+    }
+    return document.querySelector(selector);
+  }
+
   function startTour() {
+    // If not on Screen 1 (Home), switch to Screen 1 first so all targets exist in DOM
+    if (window.NexusQuiz && typeof window.NexusQuiz.showScreen === "function") {
+      const screen1 = document.getElementById("screen-1");
+      if (!screen1 || screen1.classList.contains("hidden")) {
+        window.NexusQuiz.showScreen(1);
+      }
+    }
+
+    // Close any open modals
+    document.querySelectorAll(".modal-overlay:not(.hidden)").forEach((m) => m.classList.add("hidden"));
+    if (elements.chatPanel && !elements.chatPanel.classList.contains("hidden")) {
+      elements.chatPanel.classList.add("hidden");
+    }
+
     const tourData = window.NEXI_SCRIPT[currentLang]?.tour || window.NEXI_SCRIPT.en.tour;
     if (!tourData || tourData.length === 0) return;
 
     isTourActive = true;
     tourCurrentStep = 0;
+
     elements.spotlight.classList.remove("hidden");
     elements.tourCard.classList.remove("hidden");
+    elements.bubble.classList.add("hidden");
 
-    renderTourStep();
+    window.addEventListener("scroll", handleTourScrollOrResize, { passive: true });
+    window.addEventListener("resize", handleTourScrollOrResize);
+    window.addEventListener("keydown", handleTourKeydown);
+
+    // Allow screen layout a moment to render before positioning
+    setTimeout(() => {
+      renderTourStep();
+    }, 60);
+  }
+
+  function positionTourElements(target) {
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // 1. Position Spotlight frame (fixed viewport-relative coordinates)
+    const padding = 8;
+    const spotTop = Math.max(0, rect.top - padding);
+    const spotLeft = Math.max(0, rect.left - padding);
+    const spotWidth = Math.min(vw - spotLeft, rect.width + padding * 2);
+    const spotHeight = Math.min(vh - spotTop, rect.height + padding * 2);
+
+    elements.spotlight.style.top = `${spotTop}px`;
+    elements.spotlight.style.left = `${spotLeft}px`;
+    elements.spotlight.style.width = `${spotWidth}px`;
+    elements.spotlight.style.height = `${spotHeight}px`;
+
+    // 2. Measure & Position Tour Card
+    const card = elements.tourCard;
+    const cardWidth = Math.min(360, vw - 32);
+    const cardHeight = card.offsetHeight || 220;
+
+    // Determine vertical placement: below or above target?
+    let cardTop;
+    const spaceBelow = vh - rect.bottom - 16;
+    const spaceAbove = rect.top - 16;
+
+    if (spaceBelow >= cardHeight || spaceBelow >= spaceAbove) {
+      cardTop = rect.bottom + 14;
+    } else {
+      cardTop = rect.top - cardHeight - 14;
+    }
+
+    // Clamp cardTop inside viewport so action buttons never get clipped
+    cardTop = Math.max(16, Math.min(vh - cardHeight - 16, cardTop));
+
+    // Determine horizontal placement
+    let cardLeft;
+    if (rect.width > cardWidth) {
+      cardLeft = rect.left + (rect.width - cardWidth) / 2;
+    } else {
+      cardLeft = rect.left;
+    }
+
+    // Strictly clamp cardLeft inside viewport so right edge never overflows!
+    cardLeft = Math.max(16, Math.min(vw - cardWidth - 16, cardLeft));
+
+    card.style.top = `${cardTop}px`;
+    card.style.left = `${cardLeft}px`;
+
+    // 3. Position Nexi Mascot
+    if (!isReduced && elements.container) {
+      elements.container.style.position = "fixed";
+      elements.container.style.bottom = "auto";
+      elements.container.style.right = "auto";
+      elements.container.style.transform = "none";
+
+      const mascotWidth = 76;
+
+      if (cardLeft + cardWidth + mascotWidth + 20 <= vw) {
+        // Fits to the right of the tour card
+        elements.container.style.left = `${cardLeft + cardWidth + 12}px`;
+        elements.container.style.top = `${Math.min(vh - 100, Math.max(16, cardTop))}px`;
+        setPose("point-left");
+      } else if (cardLeft - mascotWidth - 16 >= 10) {
+        // Fits to the left of the tour card
+        elements.container.style.left = `${cardLeft - mascotWidth - 10}px`;
+        elements.container.style.top = `${Math.min(vh - 100, Math.max(16, cardTop))}px`;
+        setPose("point-right");
+      } else {
+        // Mobile / narrow screen: dock safely at bottom right
+        elements.container.style.left = "auto";
+        elements.container.style.right = "16px";
+        elements.container.style.top = "auto";
+        elements.container.style.bottom = "16px";
+        setPose("wave");
+      }
+    }
   }
 
   function renderTourStep() {
@@ -424,38 +577,77 @@ window.Nexi = (function () {
     }
 
     const step = tourData[tourCurrentStep];
-    document.getElementById("nexi-tour-title").textContent = step.title;
-    document.getElementById("nexi-tour-text").textContent = step.text;
+    const isFirst = tourCurrentStep === 0;
+    const isLast = tourCurrentStep === tourData.length - 1;
 
-    // Render step dots
+    // Header & Content
+    const titleEl = document.getElementById("nexi-tour-title");
+    if (titleEl) {
+      titleEl.innerHTML = `<span class="nexi-tour-step-badge">${tourCurrentStep + 1}/${tourData.length}</span> ${step.title}`;
+    }
+    const textEl = document.getElementById("nexi-tour-text");
+    if (textEl) {
+      textEl.textContent = step.text;
+    }
+
+    // Action buttons
+    const prevBtn = document.getElementById("nexi-tour-prev");
+    if (prevBtn) {
+      prevBtn.disabled = isFirst;
+      prevBtn.style.opacity = isFirst ? "0.35" : "1";
+      prevBtn.style.pointerEvents = isFirst ? "none" : "auto";
+    }
+
+    const nextBtn = document.getElementById("nexi-tour-next");
+    if (nextBtn) {
+      nextBtn.textContent = isLast
+        ? (currentLang === "hi" ? "समाप्त ✓" : "Finish ✓")
+        : (currentLang === "hi" ? "आगे →" : "Next →");
+    }
+
+    // Step dots
     const dotsContainer = document.getElementById("nexi-tour-dots");
-    dotsContainer.innerHTML = tourData
-      .map(
-        (_, i) => `<span class="nexi-dot ${i === tourCurrentStep ? "active" : ""}"></span>`
-      )
-      .join("");
+    if (dotsContainer) {
+      dotsContainer.innerHTML = tourData
+        .map(
+          (_, i) => `<span class="nexi-dot ${i === tourCurrentStep ? "active" : ""}" data-step="${i}" title="Step ${i + 1}"></span>`
+        )
+        .join("");
 
-    // Position spotlight & mascot
-    const target = document.querySelector(step.target);
+      dotsContainer.querySelectorAll(".nexi-dot").forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const stepIdx = parseInt(dot.getAttribute("data-step"), 10);
+          if (!isNaN(stepIdx)) {
+            tourCurrentStep = stepIdx;
+            renderTourStep();
+          }
+        });
+      });
+    }
+
+    // Target tracking & scrolling
+    const target = getTourTarget(step.target);
     if (target) {
       const rect = target.getBoundingClientRect();
-      elements.spotlight.style.top = `${rect.top + window.scrollY - 8}px`;
-      elements.spotlight.style.left = `${rect.left + window.scrollX - 8}px`;
-      elements.spotlight.style.width = `${rect.width + 16}px`;
-      elements.spotlight.style.height = `${rect.height + 16}px`;
-
-      // Position tour card near target
-      const cardTop = Math.min(window.innerHeight - 200, Math.max(20, rect.bottom + 15));
-      elements.tourCard.style.top = `${cardTop}px`;
-      elements.tourCard.style.left = `${Math.max(20, rect.left)}px`;
-
-      glideToElement(step.target, step.pose || "point-right");
+      const isOutOfView = rect.top < 70 || rect.bottom > window.innerHeight - 70;
+      if (isOutOfView) {
+        target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        setTimeout(() => {
+          positionTourElements(target);
+        }, 320);
+      }
+      positionTourElements(target);
     }
 
     speak(step.text, step.pose || "wave", true);
   }
 
   function nextTourStep() {
+    const tourData = window.NEXI_SCRIPT[currentLang]?.tour || window.NEXI_SCRIPT.en.tour;
+    if (tourCurrentStep >= tourData.length - 1) {
+      stopTour();
+      return;
+    }
     tourCurrentStep++;
     renderTourStep();
   }
@@ -471,6 +663,17 @@ window.Nexi = (function () {
     isTourActive = false;
     elements.spotlight.classList.add("hidden");
     elements.tourCard.classList.add("hidden");
+
+    window.removeEventListener("scroll", handleTourScrollOrResize);
+    window.removeEventListener("resize", handleTourScrollOrResize);
+    window.removeEventListener("keydown", handleTourKeydown);
+
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    isSpeaking = false;
+    speechQueue = [];
+
     resetPosition();
     hideBubble();
   }

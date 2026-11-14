@@ -3009,42 +3009,65 @@ body.quiz-active .app-footer,
   flex-direction: column;
   align-items: flex-end;
   pointer-events: none;
+  transition: top 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), left 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .nexi-avatar-wrapper {
   position: relative;
   cursor: pointer;
   pointer-events: auto;
-  width: 52px; height: 52px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
-  background: var(--bg-card);
+  background: radial-gradient(circle at 50% 115%, var(--bamboo-tint) 0%, var(--bg-card) 72%);
   border: 3px solid var(--bamboo);
-  box-shadow: var(--shadow-hard);
-  display: flex; align-items: center; justify-content: center;
-  transition: all var(--fast);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22), 0 0 0 2px var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--fast), box-shadow var(--fast);
+  overflow: visible;
 }
 
 .nexi-avatar-wrapper:hover {
-  transform: translate(-2px,-2px);
-  box-shadow: var(--shadow-hard-lg);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 24px rgba(46, 125, 79, 0.32), 0 0 0 2px var(--bamboo);
 }
 
-.nexi-avatar-wrapper:active { transform: translate(2px,2px); box-shadow: none; }
+.nexi-avatar-wrapper:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 
-.nexi-img { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; }
-.nexi-emoji-fallback { font-size: 1.6rem; }
+.nexi-img {
+  width: 58px;
+  height: 76px;
+  object-fit: contain;
+  position: relative;
+  top: -6px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.28));
+  pointer-events: none;
+  user-select: none;
+  transition: filter var(--fast);
+}
+
+.nexi-emoji-fallback {
+  font-size: 2.2rem;
+  line-height: 1;
+}
 
 .nexi-pulse-ring {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
   border: 2px solid var(--bamboo);
-  opacity: 0.35;
-  animation: pulseDock 2s infinite ease-out;
+  opacity: 0.4;
+  pointer-events: none;
+  animation: pulseDock 2.2s infinite ease-out;
 }
 
 @keyframes pulseDock {
-  0%   { transform: scale(1); opacity: 0.4; }
+  0%   { transform: scale(1); opacity: 0.45; }
   100% { transform: scale(1.35); opacity: 0; }
 }
 
@@ -3069,7 +3092,7 @@ body.quiz-active .app-footer,
 /* Chat Panel */
 .nexi-chat-panel {
   position: fixed;
-  bottom: 88px;
+  bottom: 96px;
   right: var(--s-6);
   width: 340px;
   max-width: calc(100vw - var(--s-8));
@@ -3341,53 +3364,114 @@ body.quiz-active .app-footer,
    15. TOUR WALKTHROUGH
    ────────────────────────────────────────────── */
 .nexi-spotlight {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.6);
+  position: fixed;
   z-index: 850;
-  pointer-events: auto;
-  transition: opacity 250ms ease;
+  pointer-events: none;
+  border-radius: var(--r-md);
+  border: 2px solid var(--bamboo);
+  box-shadow: 0 0 0 9999px rgba(10, 15, 25, 0.72), 0 0 20px rgba(16, 185, 129, 0.35);
+  background: transparent;
+  transition: top 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              left 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              opacity 0.2s ease;
+  box-sizing: border-box;
 }
 
 .nexi-tour-card {
-  position: fixed; z-index: 920;
-  max-width: 360px;
+  position: fixed;
+  z-index: 920;
+  width: 360px;
+  max-width: calc(100vw - 32px);
   background: var(--bg-card);
   border: 2px solid var(--border);
   border-radius: var(--r-md);
-  padding: var(--s-6);
-  box-shadow: var(--shadow-hard);
+  padding: var(--s-5) var(--s-6);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);
+  transition: top 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              left 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-sizing: border-box;
 }
 
-.nexi-tour-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s-3); }
+.nexi-tour-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-2);
+}
 
 .nexi-tour-title {
   font-family: var(--font-display);
-  font-size: var(--t-base); font-weight: 800; color: var(--text-primary);
+  font-size: var(--t-base);
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+
+.nexi-tour-step-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bamboo);
+  background: rgba(16, 185, 129, 0.12);
+  padding: 2px 7px;
+  border-radius: var(--r-pill);
+  margin-right: 8px;
+  display: inline-block;
 }
 
 .nexi-tour-text {
-  font-size: var(--t-sm); color: var(--text-secondary);
-  line-height: 1.55; margin-bottom: var(--s-5);
+  font-size: var(--t-sm);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--s-4);
 }
 
-.nexi-tour-footer { display: flex; align-items: center; justify-content: space-between; }
+.nexi-tour-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--border-light);
+}
 
-.nexi-tour-dots { display: flex; gap: var(--s-1); }
+.nexi-tour-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
 
 .nexi-dot {
-  width: 7px; height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--border-light);
+  cursor: pointer;
   transition: all var(--fast);
+}
+
+.nexi-dot:hover {
+  background: var(--text-muted);
 }
 
 .nexi-dot.active {
   background: var(--bamboo);
-  width: 18px;
+  width: 20px;
   border-radius: var(--r-pill);
 }
 
-.nexi-tour-actions { display: flex; gap: var(--s-2); }
+.nexi-tour-actions {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.nexi-tour-actions button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 /* ──────────────────────────────────────────────
    16. CONFETTI (paper shapes)
@@ -3545,6 +3629,12 @@ body.quiz-active .app-footer,
 
   /* Safe area padding */
   .quiz-controls-bar { padding-bottom: calc(var(--s-4) + env(safe-area-inset-bottom, 0px)); }
+
+  /* Mascot dock mobile adjustments */
+  .nexi-container { bottom: var(--s-4); right: var(--s-4); }
+  .nexi-avatar-wrapper { width: 58px; height: 58px; }
+  .nexi-img { width: 50px; height: 66px; top: -5px; }
+  .nexi-chat-panel { bottom: 84px; right: var(--s-4); }
 }
 
 /* ──────────────────────────────────────────────

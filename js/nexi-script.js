@@ -9,7 +9,7 @@ window.NEXI_SCRIPT = {
     tourPrompt: "Hello! I am Nexi, your AI quiz companion! Would you like a quick 1-minute guided tour of Nexus Quiz?",
     tour: [
       {
-        target: "#app-header",
+        target: ".header-nav",
         pose: "wave",
         title: "Header & Settings",
         text: "Here you can toggle Dark/Light theme, mute my voice, replay this tour, or view your past quiz history!"
@@ -92,7 +92,7 @@ window.NEXI_SCRIPT = {
     tourPrompt: "नमस्ते! मैं नेक्सी (Nexi) हूँ, आपका AI क्विज़ साथी! क्या आप Nexus Quiz का 1-मिनट का क्विक टूर लेना चाहेंगे?",
     tour: [
       {
-        target: "#app-header",
+        target: ".header-nav",
         pose: "wave",
         title: "हेडर और सेटिंग्स",
         text: "यहाँ से आप डार्क/लाइट थीम बदल सकते हैं, मेरी आवाज़ म्यूट कर सकते हैं, टूर दोबारा देख सकते हैं या अपनी पुरानी क्विज़ हिस्ट्री देख सकते हैं!"
